@@ -1,13 +1,14 @@
 import * as React from "react";
 import { Button, Grid } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
-import { setTodosType } from "../store";
+import { useTodoContext } from "../store";
 
 /*
 JSON source: https://raw.githubusercontent.com/jherr/todos-four-ways/master/data/todos.json
 */
 
-function TopBar({ todosSet }: { todosSet: setTodosType }) {
+function TopBar() {
+    const [, todosSet] = useTodoContext();
     const onload = () => {
         fetch(
             "https://raw.githubusercontent.com/jherr/todos-four-ways/master/data/todos.json"

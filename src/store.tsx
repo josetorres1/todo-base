@@ -32,11 +32,17 @@ export const addTodo = (todos: Todo[], text: string): Todo[] => [
 ];
 
 // Native react Implementation
-
 export const useTodos = (initial: Todo[]) => React.useState<Todo[]>(initial);
 export type UseTodosTypes = ReturnType<typeof useTodos>;
 export type TodosType = UseTodosTypes[0];
 export type setTodosType = UseTodosTypes[1];
 
-const todoContext = React.createContext<UseTodosTypes | null>(null);
-export const useTodoContext = () => React.useContext(todoContext);
+const TodosContext = React.createContext<UseTodosTypes | null>(null);
+
+export const useTodoContext = () => React.useContext(TodosContext)!;
+
+export const TodoProvider = ({ children }: { children: React.ReactNode }) => (
+    <TodosContext.Provider value={useTodos([])}>
+        {children}
+    </TodosContext.Provider>
+);

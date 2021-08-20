@@ -2,20 +2,14 @@ import * as React from "react";
 import { Button, Input, Flex, Checkbox, Heading } from "@chakra-ui/react";
 import {
     removeTodo,
-    setTodosType,
     Todo,
-    TodosType,
     toggleTodo,
     updateTodo,
+    useTodoContext,
 } from "../store";
 
-function TodoListItems({
-    todos,
-    todosSet,
-}: {
-    todos: TodosType;
-    todosSet: setTodosType;
-}) {
+function TodoListItems() {
+    const [todos, todosSet] = useTodoContext();
     return (
         <>
             {todos.map((todo: Todo) => (
@@ -45,17 +39,11 @@ function TodoListItems({
     );
 }
 
-function TodoList({
-    todos,
-    todosSet,
-}: {
-    todos: TodosType;
-    todosSet: setTodosType;
-}) {
+function TodoList() {
     return (
         <>
             <Heading>Todo List</Heading>
-            <TodoListItems todos={todos} todosSet={todosSet} />
+            <TodoListItems />
         </>
     );
 }
