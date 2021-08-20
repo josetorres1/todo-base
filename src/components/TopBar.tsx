@@ -8,13 +8,13 @@ JSON source: https://raw.githubusercontent.com/jherr/todos-four-ways/master/data
 */
 
 function TopBar() {
-    const [, todosSet] = useTodoContext();
+    const { load } = useTodoContext();
     const onload = () => {
         fetch(
             "https://raw.githubusercontent.com/jherr/todos-four-ways/master/data/todos.json"
         )
             .then((resp) => resp.json())
-            .then((data) => todosSet(data));
+            .then((data) => load(data));
     };
     return (
         <Grid pt={2} templateColumns="1fr 1fr" columnGap="3">

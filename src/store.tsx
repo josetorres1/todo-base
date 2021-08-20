@@ -32,10 +32,33 @@ export const addTodo = (todos: Todo[], text: string): Todo[] => [
 ];
 
 // Native react Implementation
-export const useTodos = (initial: Todo[]) => React.useState<Todo[]>(initial);
+const useTodos = (initial: Todo[]) => {
+    const [todos, todosSet] = React.useState<Todo[]>(initial);
+    const [newTodo, newTodoSet] = React.useState("");
+    return {
+        todos,
+        newTodo,
+        newTodoSet,
+        addTodo() {
+            todosSet((tl) => addTodo(tl, newTodo));
+            newTodoSet("");
+        },
+        updateTodo(id: number, text: string) {
+            todosSet((tl) => updateTodo(tl, id, text));
+        },
+        toggleTodo(id: number) {
+            todosSet((tl) => toggleTodo(tl, id));
+        },
+        removeTodo(id: number) {
+            todosSet((tl) => removeTodo(tl, id));
+        },
+        load(newTodos: Todo[]) {
+            todosSet(newTodos);
+        },
+    };
+};
+
 export type UseTodosTypes = ReturnType<typeof useTodos>;
-export type TodosType = UseTodosTypes[0];
-export type setTodosType = UseTodosTypes[1];
 
 const TodosContext = React.createContext<UseTodosTypes | null>(null);
 
